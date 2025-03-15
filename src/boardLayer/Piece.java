@@ -14,10 +14,6 @@ public abstract class Piece {
 		return position;
 	}
 
-	public void setPosition(Position position) {
-		this.position = position;
-	}
-
 	protected Board getBoard() {
 		return board;
 	}
