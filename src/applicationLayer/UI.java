@@ -1,6 +1,10 @@
 package applicationLayer;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import chessLayer.ChessPiece;
+import chessLayer.ChessPosition;
 import chessLayer.Color;
 
 public class UI {
@@ -23,6 +27,17 @@ public class UI {
 	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+
+	public static ChessPosition readChessPosition(Scanner scanner) {
+		try {
+			String s = scanner.nextLine();
+			char column = s.toLowerCase().charAt(0);
+			int row = Integer.parseInt(s.substring(1, 2));
+			return new ChessPosition(column, row);
+		} catch (RuntimeException e) {
+			throw new InputMismatchException("Erro ao ler a posicao: somente posicoes de a1 a h8 estao no tabuleiro!");
+		}
+	}
 
 	public static void printBoard(ChessPiece[][] pieces) {
 		for (int i = 0; i < pieces.length; i++) {
