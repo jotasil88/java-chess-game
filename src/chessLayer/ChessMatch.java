@@ -3,6 +3,7 @@ package chessLayer;
 import boardLayer.Board;
 import boardLayer.Piece;
 import chessLayer.pieces.King;
+import chessLayer.pieces.Rook;
 
 public class ChessMatch {
 
@@ -25,9 +26,18 @@ public class ChessMatch {
 	}
 
 	private void initialSetup() {
-		placeNewPiece(new King(board, Color.WHITE), 'e', 5);
-		placeNewPiece(new King(board, Color.WHITE), 'd', 5);
-		placeNewPiece(new King(board, Color.WHITE), 'g', 5);
+		placeNewPiece(new King(board, Color.WHITE), 'd', 1);
+		placeNewPiece(new King(board, Color.BLACK), 'd', 8);
+		placeNewPiece(new Rook(board, Color.WHITE), 'c', 1);
+		placeNewPiece(new Rook(board, Color.WHITE), 'c', 2);
+		placeNewPiece(new Rook(board, Color.WHITE), 'd', 2);
+		placeNewPiece(new Rook(board, Color.WHITE), 'e', 2);
+		placeNewPiece(new Rook(board, Color.WHITE), 'e', 1);
+		placeNewPiece(new Rook(board, Color.BLACK), 'c', 8);
+		placeNewPiece(new Rook(board, Color.BLACK), 'c', 7);
+		placeNewPiece(new Rook(board, Color.BLACK), 'd', 7);
+		placeNewPiece(new Rook(board, Color.BLACK), 'e', 8);
+		placeNewPiece(new Rook(board, Color.BLACK), 'e', 7);
 	}
 
 	private void placeNewPiece(Piece piece, char column, int row) {
