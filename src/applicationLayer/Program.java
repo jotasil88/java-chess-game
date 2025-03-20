@@ -3,6 +3,8 @@ package applicationLayer;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import boardLayer.Board;
+import boardLayer.Piece;
 import chessLayer.ChessException;
 import chessLayer.ChessMatch;
 import chessLayer.ChessPiece;
@@ -30,7 +32,7 @@ public class Program {
 				ChessPiece chessPiece = chessMatch.performChessMove(source, target);
 			} catch (ChessException | InputMismatchException e) {
 				UI.clearScreen();
-				System.out.println(e.getMessage() + "\nAperte qualquer tecla para voltar ao jogo!");
+				System.out.println(e.getMessage() + "\n\nAperte qualquer tecla para voltar ao jogo!");
 				scanner.nextLine();
 			}
 		}
