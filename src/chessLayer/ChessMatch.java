@@ -1,7 +1,6 @@
 package chessLayer;
 
 import boardLayer.Board;
-import boardLayer.BoardException;
 import boardLayer.Piece;
 import boardLayer.Position;
 import chessLayer.pieces.King;
@@ -26,29 +25,41 @@ public class ChessMatch {
 
 		return mat;
 	}
-	
+
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
 		validateSourcePosition(source);
+		validateTargetPosition(source, target);
 		return makeMove(source, target);
 	}
-	
+
 	private ChessPiece makeMove(Position source, Position target) {
 		Piece movingPiece = board.removePiece(source);
 		Piece capturedPiece = board.removePiece(target);
 		board.placePiece(movingPiece, target);
 		return (ChessPiece) capturedPiece;
 	}
-	
+
 	private void validateSourcePosition(Position source) {
 		if (!board.positionExists(source)) {
-			throw new BoardException("position does not exists on the board!");
+			throw new ChessException("position does not exists on the board!");
 		}
-		
+
 		if (!board.thereIsAPiece(source)) {
-			throw new BoardException("Nao existe uma peca na posicao informada!");
+			throw new ChessException("Nao existe uma peca na posicao informada!");
 		}
+	}
+
+	private void validateTargetPosition(Position source, Position target) {
+		if (!board.positionExists(target)) {
+			throw new ChessException("position does not exists on the board!");
+		}
+
+		if (!board.piece(source).possibleMove(target)) {
+			throw new ChessException("Esse movimento não é possível!");
+		}
+
 	}
 
 	private void initialSetup() {
