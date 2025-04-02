@@ -3,6 +3,7 @@ package applicationLayer;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import chessLayer.ChessMatch;
 import chessLayer.ChessPiece;
 import chessLayer.ChessPosition;
 import chessLayer.Color;
@@ -42,6 +43,13 @@ public class UI {
 	public static void clearScreen() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
+	}
+	
+	public static void printMatch(ChessMatch chessMatch) {
+		printBoard(chessMatch.getPieces());
+		System.out.println();
+		System.out.println("Rodada: " + chessMatch.getTurn());
+		System.out.println("Jogador: " + chessMatch.getCurrentPlayer());
 	}
 
 	public static void printBoard(ChessPiece[][] pieces) {

@@ -18,13 +18,15 @@ public class Program {
 		while (rollingGame) {
 			try {
 				UI.clearScreen();
-				UI.printBoard(chessMatch.getPieces());
+				UI.printMatch(chessMatch);
 
 				System.out.println();
 				System.out.print("Peca: ");
 				ChessPosition source = UI.readChessPosition(scanner);
 
-				UI.printBoard(chessMatch.getPieces(), chessMatch.possibleMoves(source));		
+				UI.clearScreen();
+				UI.printBoard(chessMatch.getPieces(), chessMatch.possibleMoves(source));
+				System.out.println();
 				System.out.print("Posicao: ");
 				ChessPosition target = UI.readChessPosition(scanner);
 
