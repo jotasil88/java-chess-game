@@ -51,11 +51,19 @@ public class UI {
 		printCapturedPieces(chessMatch.getCapturedPieces());
 		System.out.println();
 		System.out.println("Rodada: " + chessMatch.getTurn());
-		System.out.println("Jogador: " + chessMatch.getCurrentPlayer());
 		
-		if (chessMatch.isCheck()) {
-			System.out.println("Você esta em check!");
+		if (!chessMatch.isCheckMate()) {
+			System.out.println("Rodada: " + chessMatch.getTurn());
+			System.out.println("Jogador: " + chessMatch.getCurrentPlayer());
+
+			if (chessMatch.isCheck()) {
+				System.out.println("Você esta em check!");
+			}
+		} else {
+			System.out.println("Fim de jogo!");
+			System.out.println("Vencedor: " + chessMatch.getCurrentPlayer());
 		}
+
 	}
 
 	public static void printBoard(ChessPiece[][] pieces) {
@@ -110,6 +118,7 @@ public class UI {
 		System.out.println();
 		System.out.println("PECAS CAPTURADAS!");
 		System.out.println("Brancas: " + capturedPieces.stream().filter(x -> x.getColor() == Color.WHITE).toList());
-		System.out.println("Pretas:  " + ANSI_YELLOW + capturedPieces.stream().filter(x -> x.getColor() == Color.BLACK).toList()+ ANSI_RESET);
+		System.out.println("Pretas:  " + ANSI_YELLOW
+				+ capturedPieces.stream().filter(x -> x.getColor() == Color.BLACK).toList() + ANSI_RESET);
 	}
 }

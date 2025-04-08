@@ -10,11 +10,10 @@ import chessLayer.ChessPosition;
 public class Program {
 
 	public static void main(String[] args) {
-		boolean rollingGame = true;
 		Scanner scanner = new Scanner(System.in);
 		ChessMatch chessMatch = new ChessMatch();
 
-		while (rollingGame) {
+		while (!chessMatch.isCheckMate()) {
 			try {
 				UI.clearScreen();
 				UI.printMatch(chessMatch);
@@ -38,6 +37,9 @@ public class Program {
 				scanner.nextLine();
 			}
 		}
+
+		UI.clearScreen();
+		UI.printMatch(chessMatch);
 
 		scanner.close();
 	}
