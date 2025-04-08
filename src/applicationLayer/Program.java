@@ -5,15 +5,14 @@ import java.util.Scanner;
 
 import chessLayer.ChessException;
 import chessLayer.ChessMatch;
-import chessLayer.ChessPiece;
 import chessLayer.ChessPosition;
 
 public class Program {
 
 	public static void main(String[] args) {
+		boolean rollingGame = true;
 		Scanner scanner = new Scanner(System.in);
 		ChessMatch chessMatch = new ChessMatch();
-		boolean rollingGame = true;
 
 		while (rollingGame) {
 			try {
@@ -30,10 +29,12 @@ public class Program {
 				System.out.print("Posicao: ");
 				ChessPosition target = UI.readChessPosition(scanner);
 
-				ChessPiece chessPiece = chessMatch.performChessMove(source, target);
+				chessMatch.performChessMove(source, target);
 			} catch (ChessException | InputMismatchException e) {
 				UI.clearScreen();
-				System.out.println(e.getMessage() + "\n\nAperte qualquer tecla para voltar ao jogo!");
+				System.out.println();
+				System.out.println();
+				System.out.println(e.getMessage() + "Aperte qualquer tecla para voltar ao jogo!");
 				scanner.nextLine();
 			}
 		}

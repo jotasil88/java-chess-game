@@ -9,7 +9,7 @@ public class ChessPosition {
 	
 	public ChessPosition(char column, int row) {
 		if (column < 'a' || column > 'h' || row < 1 || row > 8) {
-			throw new ChessException("Error creating ChessPosition: only positions from a1 to h8 are on the board");
+			throw new ChessException("Error creating ChessPosition: only positions from a1 to h8 are on the board!");
 		}
 		
 		this.column = column;
@@ -29,7 +29,7 @@ public class ChessPosition {
 	}
 	
 	protected static ChessPosition toChessPosition(Position position) {
-		return new ChessPosition(((char) (position.getColumn() + 'a')), position.getRow() + 8);
+		return new ChessPosition(((char) (position.getColumn() + 'a')), 8 - position.getRow());
 	}
 
 	@Override
