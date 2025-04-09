@@ -13,7 +13,6 @@ public class King extends ChessPiece {
 
 	@Override
 	public boolean[][] possibleMoves() {
-
 		Position p = new Position();
 		boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
 

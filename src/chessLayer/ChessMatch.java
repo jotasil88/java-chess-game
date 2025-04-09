@@ -7,6 +7,7 @@ import boardLayer.Board;
 import boardLayer.Piece;
 import boardLayer.Position;
 import chessLayer.pieces.King;
+import chessLayer.pieces.Pawn;
 import chessLayer.pieces.Rook;
 
 public class ChessMatch {
@@ -82,9 +83,10 @@ public class ChessMatch {
 	}
 
 	private ChessPiece makeMove(Position source, Position target) {
-		Piece movingPiece = board.removePiece(source);
+		ChessPiece movingPiece = (ChessPiece) board.removePiece(source);
 		ChessPiece capturedPiece = (ChessPiece) board.removePiece(target);
 		board.placePiece(movingPiece, target);
+		movingPiece.increaseMoveCount();
 
 		if (capturedPiece != null) {
 			piecesOnTheBoard.remove(capturedPiece);
@@ -94,8 +96,9 @@ public class ChessMatch {
 	}
 
 	private void undoMove(Position source, Position target, ChessPiece capturedPiece) {
-		Piece movingPiece = board.removePiece(target);
+		ChessPiece movingPiece = (ChessPiece) board.removePiece(target);
 		board.placePiece(movingPiece, source);
+		movingPiece.decreaseMoveCount();
 
 		if (capturedPiece != null) {
 			board.placePiece(capturedPiece, target);
@@ -115,6 +118,10 @@ public class ChessMatch {
 
 		if (getCurrentPlayer() != ((ChessPiece) board.piece(source)).getColor()) {
 			throw new ChessException("Essa peca nao e sua!");
+		}
+		
+		if (!board.piece(source).isThereAnyPossibleMove()) {
+			throw new ChessException("Nao existe um movimento possivel para a peca na posicao informada!");
 		}
 	}
 
@@ -189,10 +196,28 @@ public class ChessMatch {
 
 	private void initialSetup() {
 		placeNewPiece(new King(board, Color.WHITE), 'e', 1);
-		placeNewPiece(new Rook(board, Color.WHITE), 'd', 1);
-		placeNewPiece(new Rook(board, Color.WHITE), 'h', 7);
-		placeNewPiece(new King(board, Color.BLACK), 'a', 8);
-		placeNewPiece(new Rook(board, Color.BLACK), 'b', 8);
+		placeNewPiece(new Rook(board, Color.WHITE), 'a', 1);
+		placeNewPiece(new Rook(board, Color.WHITE), 'h', 1);
+		placeNewPiece(new Pawn(board, Color.WHITE, this), 'a', 2);
+		placeNewPiece(new Pawn(board, Color.WHITE, this), 'b', 2);
+		placeNewPiece(new Pawn(board, Color.WHITE, this), 'c', 2);
+		placeNewPiece(new Pawn(board, Color.WHITE, this), 'd', 2);
+		placeNewPiece(new Pawn(board, Color.WHITE, this), 'e', 2);
+		placeNewPiece(new Pawn(board, Color.WHITE, this), 'f', 2);
+		placeNewPiece(new Pawn(board, Color.WHITE, this), 'g', 2);
+		placeNewPiece(new Pawn(board, Color.WHITE, this), 'h', 2);
+		
+		placeNewPiece(new King(board, Color.BLACK), 'e', 8);
+		placeNewPiece(new Rook(board, Color.BLACK), 'a', 8);
+		placeNewPiece(new Rook(board, Color.BLACK), 'h', 8);
+		placeNewPiece(new Pawn(board, Color.BLACK, this), 'a', 7);
+		placeNewPiece(new Pawn(board, Color.BLACK, this), 'b', 7);
+		placeNewPiece(new Pawn(board, Color.BLACK, this), 'c', 7);
+		placeNewPiece(new Pawn(board, Color.BLACK, this), 'd', 7);
+		placeNewPiece(new Pawn(board, Color.BLACK, this), 'e', 7);
+		placeNewPiece(new Pawn(board, Color.BLACK, this), 'f', 7);
+		placeNewPiece(new Pawn(board, Color.BLACK, this), 'g', 7);
+		placeNewPiece(new Pawn(board, Color.BLACK, this), 'h', 7);
 	}
 
 	private void placeNewPiece(Piece piece, char column, int row) {

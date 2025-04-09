@@ -53,7 +53,6 @@ public class UI {
 		System.out.println("Rodada: " + chessMatch.getTurn());
 		
 		if (!chessMatch.isCheckMate()) {
-			System.out.println("Rodada: " + chessMatch.getTurn());
 			System.out.println("Jogador: " + chessMatch.getCurrentPlayer());
 
 			if (chessMatch.isCheck()) {
