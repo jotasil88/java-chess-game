@@ -10,6 +10,7 @@ import chessLayer.pieces.Bishop;
 import chessLayer.pieces.King;
 import chessLayer.pieces.Knight;
 import chessLayer.pieces.Pawn;
+import chessLayer.pieces.Queen;
 import chessLayer.pieces.Rook;
 
 public class ChessMatch {
@@ -198,6 +199,7 @@ public class ChessMatch {
 
 	private void initialSetup() {
 		placeNewPiece(new King(board, Color.WHITE), 'e', 1);
+		placeNewPiece(new Queen(board, Color.WHITE), 'd', 1);
 		placeNewPiece(new Rook(board, Color.WHITE), 'a', 1);
 		placeNewPiece(new Rook(board, Color.WHITE), 'h', 1);
 		placeNewPiece(new Bishop(board, Color.WHITE), 'b', 1);
@@ -214,6 +216,7 @@ public class ChessMatch {
 		placeNewPiece(new Pawn(board, Color.WHITE), 'h', 2);
 		
 		placeNewPiece(new King(board, Color.BLACK), 'e', 8);
+		placeNewPiece(new Queen(board, Color.BLACK), 'd', 8);
 		placeNewPiece(new Rook(board, Color.BLACK), 'a', 8);
 		placeNewPiece(new Rook(board, Color.BLACK), 'h', 8);
 		placeNewPiece(new Bishop(board, Color.BLACK), 'b', 8);
