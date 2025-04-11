@@ -6,11 +6,8 @@ import java.util.List;
 import boardLayer.Board;
 import boardLayer.Piece;
 import boardLayer.Position;
-import chessLayer.pieces.Bishop;
 import chessLayer.pieces.King;
-import chessLayer.pieces.Knight;
 import chessLayer.pieces.Pawn;
-import chessLayer.pieces.Queen;
 import chessLayer.pieces.Rook;
 
 public class ChessMatch {
@@ -77,7 +74,7 @@ public class ChessMatch {
 			throw new ChessException("Voce nao pode se colocar em cheque!");
 		}
 		check = (testCheck(opponent(currentPlayer)));
-		
+
 		if (testCheckMate(opponent(currentPlayer))) {
 			checkMate = testCheckMate(opponent(currentPlayer));
 		} else {
@@ -95,6 +92,18 @@ public class ChessMatch {
 			piecesOnTheBoard.remove(capturedPiece);
 			capturedPieces.add(capturedPiece);
 		}
+
+		if (movingPiece instanceof King && target.getColumn() == source.getColumn() + 2) {
+			ChessPiece rook = (ChessPiece) board.removePiece(new Position(source.getRow(), source.getColumn() + 3));
+			board.placePiece(rook, new Position(source.getRow(), source.getColumn() + 1));
+			rook.increaseMoveCount();
+		}
+
+		if (movingPiece instanceof King && target.getColumn() == source.getColumn() - 2) {
+			ChessPiece rook = (ChessPiece) board.removePiece(new Position(source.getRow(), source.getColumn() - 4));
+			board.placePiece(rook, new Position(source.getRow(), source.getColumn() - 1));
+			rook.increaseMoveCount();
+		}
 		return capturedPiece;
 	}
 
@@ -107,6 +116,18 @@ public class ChessMatch {
 			board.placePiece(capturedPiece, target);
 			capturedPieces.remove(capturedPiece);
 			piecesOnTheBoard.add(capturedPiece);
+		}
+
+		if (movingPiece instanceof King && target.getColumn() == source.getColumn() + 2) {
+			ChessPiece rook = (ChessPiece) board.removePiece(new Position(source.getRow(), source.getColumn() + 1));
+			board.placePiece(rook, new Position(source.getRow(), source.getColumn() + 3));
+			rook.decreaseMoveCount();
+		}
+
+		if (movingPiece instanceof King && target.getColumn() == source.getColumn() - 2) {
+			ChessPiece rook = (ChessPiece) board.removePiece(new Position(source.getRow(), source.getColumn() - 1));
+			board.placePiece(rook, new Position(source.getRow(), source.getColumn() - 4));
+			rook.decreaseMoveCount();
 		}
 	}
 
@@ -122,7 +143,7 @@ public class ChessMatch {
 		if (getCurrentPlayer() != ((ChessPiece) board.piece(source)).getColor()) {
 			throw new ChessException("Essa peca nao e sua!");
 		}
-		
+
 		if (!board.piece(source).isThereAnyPossibleMove()) {
 			throw new ChessException("Nao existe um movimento possivel para a peca na posicao informada!");
 		}
@@ -214,7 +235,7 @@ public class ChessMatch {
 		placeNewPiece(new Pawn(board, Color.WHITE), 'f', 2);
 		placeNewPiece(new Pawn(board, Color.WHITE), 'g', 2);
 		placeNewPiece(new Pawn(board, Color.WHITE), 'h', 2);
-		
+
 		placeNewPiece(new King(board, Color.BLACK, this), 'e', 8);
 //		placeNewPiece(new Queen(board, Color.BLACK), 'd', 8);
 		placeNewPiece(new Rook(board, Color.BLACK), 'a', 8);

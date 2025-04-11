@@ -66,7 +66,7 @@ public class King extends ChessPiece {
 		}
 
 		p.setValues(position.getRow(), position.getColumn() - 2);
-		if (getMoveCount() == 0 && !chessMatch.isCheck() && canKingSideCastling()) {
+		if (getMoveCount() == 0 && !chessMatch.isCheck() && canQueenSideCastling()) {
 			mat[p.getRow()][p.getColumn()] = true;
 		}
 
@@ -89,12 +89,12 @@ public class King extends ChessPiece {
 	}
 
 	private boolean canQueenSideCastling() {
-		boolean rookCanCast = (getBoard().piece(position.getRow(), position.getColumn() + 4)) != null
-				&& ((ChessPiece) getBoard().piece(position.getRow(), position.getColumn() + 4)).getMoveCount() == 0;
+		boolean rookCanCast = (getBoard().piece(position.getRow(), position.getColumn() - 4)) != null
+				&& ((ChessPiece) getBoard().piece(position.getRow(), position.getColumn() - 4)).getMoveCount() == 0;
 
-		return rookCanCast && !getBoard().thereIsAPiece(new Position(position.getRow(), position.getColumn() + 1))
-				&& !getBoard().thereIsAPiece(new Position(position.getRow(), position.getColumn() + 2))
-				&& !getBoard().thereIsAPiece(new Position(position.getRow(), position.getColumn() + 3));
+		return rookCanCast && !getBoard().thereIsAPiece(new Position(position.getRow(), position.getColumn() - 1))
+				&& !getBoard().thereIsAPiece(new Position(position.getRow(), position.getColumn() - 2))
+				&& !getBoard().thereIsAPiece(new Position(position.getRow(), position.getColumn() - 3));
 
 	}
 
